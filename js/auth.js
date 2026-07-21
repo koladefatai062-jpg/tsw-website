@@ -1,0 +1,92 @@
+/**
+ * AUTH MODULE
+ * Handles register / login / logout and updates the navbar auth link
+ * ("Login" vs "My Account") on every page. Requires js/supabase-config.js
+ * to be loaded first and configured with real credentials.
+ */
+(function ($) {
+  "use strict";
+
+  function requireClient() {
+    if (!supabaseClient) {
+      alert("Supabase isn't configured yet — see js/supabase-config.js");
+      return false;
+    }
+    return true;
+  }
+
+  window.TSWAuth = {
+    async register(fullName, email, phone, password) {
+      if (!requireClient()) return;
+      const { data, error } = await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: { data: { full_name: fullName } }
+      });
+      if (error) throw error;
+      // Save phone separately since it's not part of auth.users metadata by default
+      if (data.user) {
+        await supabaseClient.from("profiles").update({ phone }).eq("id", data.user.id);
+      }
+      return data;
+    },
+
+    async login(email, password) {
+      if (!requireClient()) return;
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      return data;
+    },
+
+    async logout() {
+      if (!requireClient()) return;
+      await supabaseClient.auth.signOut();
+      window.location.href = "index.html";
+    },
+
+    async getSession() {
+      if (!supabaseClient) return null;
+      const { data } = await supabaseClient.auth.getSession();
+      return data.session;
+    },
+
+    async getProfile(userId) {
+      if (!supabaseClient) return null;
+      const { data } = await supabaseClient.from("profiles").select("*").eq("id", userId).single();
+      return data;
+    },
+
+    async requireLogin(redirectTo = "login.html") {
+      const session = await this.getSession();
+      if (!session) {
+        window.location.href = redirectTo;
+        return null;
+      }
+      return session;
+    },
+
+    async requireAdmin() {
+      const session = await this.requireLogin();
+      if (!session) return null;
+      const profile = await this.getProfile(session.user.id);
+      if (!profile || !profile.is_admin) {
+        window.location.href = "index.html";
+        return null;
+      }
+      return session;
+    }
+  };
+
+  // ---------- Navbar auth link (Login vs My Account) ----------
+  $(document).ready(async function () {
+    const $authLink = $("[data-auth-link]");
+    if (!$authLink.length || !supabaseClient) return;
+
+    const session = await window.TSWAuth.getSession();
+    if (session) {
+      $authLink.attr("href", "account.html").attr("aria-label", "Account");
+    } else {
+      $authLink.attr("href", "login.html").attr("aria-label", "Account");
+    }
+  });
+})(jQuery);

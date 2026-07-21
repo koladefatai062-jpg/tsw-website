@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tsw_theme')||'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<meta charset="utf-8">
+<title>TSW x STAYWOKE — Dark Streetwear</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="img/favicon.ico" rel="icon">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/site.css" rel="stylesheet">
+</head>
+<body>
+<header class="site-header">
+    <div class="wrap nav-row">
+        <a href="index.html" class="wordmark">TSW</a>
+        <nav class="main-nav">
+            <a href="index.html" class=" is-active">Home</a>
+            <a href="service.html" class="">Shop</a>
+            <a href="team.html" class="">Collection</a>
+            <a href="about.html" class="">About</a>
+            <a href="contact.html" class="">Contact</a>
+        </nav>
+        <div class="nav-actions">
+            <div class="nav-search">
+                <button type="button" class="nav-search-btn" data-nav-search aria-label="Search"><i class="fa fa-magnifying-glass"></i></button>
+                <input type="text" class="nav-search-input" placeholder="Search products..." data-nav-search-input>
+            </div>
+            <button type="button" class="theme-toggle-btn" data-theme-toggle aria-label="Toggle dark/light mode"><i class="fa fa-moon"></i></button>
+            <a href="login.html" class="icon-btn" data-auth-link aria-label="Account"><i class="fa fa-user"></i></a>
+            <button type="button" class="icon-btn" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-label="Cart">
+                <i class="fa fa-bag-shopping"></i><span class="badge" data-cart-badge>0</span>
+            </button>
+            <a href="https://wa.me/2349038263456?text=I want to Make an order" class="btn btn--accent btn--sm">Chat Me</a>
+            <button class="nav-toggle" data-nav-toggle aria-label="Menu"><i class="fa fa-bars"></i></button>
+        </div>
+    </div>
+    <div class="mobile-nav" data-mobile-nav>
+        <button class="mobile-nav__close" data-nav-close aria-label="Close menu"><i class="fa fa-times"></i></button>
+        <a href="index.html">Home</a>
+        <a href="service.html">Shop</a>
+        <a href="team.html">Collection</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</header>
+
+<section class="hero" style="background-image:linear-gradient(180deg, rgba(13,13,13,0.2), rgba(13,13,13,0.85)), url('img/b.jpg');">
+    <div class="wrap hero__scrim">
+        <p class="hero__sub">SUMMER COLLECTION</p>
+        <h1 class="hero__title">DROP NOW LIVE</h1>
+        <a href="service.html" class="btn btn--accent" style="margin-top:8px;">Shop Now</a>
+    </div>
+</section>
+
+<div class="category-strip">
+    <a href="service.html?filter=trending">Trending Now</a>
+    <a href="service.html?filter=bestsellers">Best Sellers</a>
+    <a href="service.html?filter=new">New Arrivals</a>
+</div>
+
+<section class="section">
+    <div class="wrap">
+        <div class="section__head">
+            <p class="eyebrow">Just In</p>
+            <h2>New Arrivals</h2>
+        </div>
+        <div class="product-grid" id="homeNewArrivalsGrid">
+            <div class="product-card shop-product-item" data-category="kids" data-name="stoned kiddies wear" data-price="19999"><div class="product-card__media"><span class="product-card__tag">New</span><button class="love-btn" data-love-btn data-slug="stoned-kiddies-wear"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=stoned-kiddies-wear"><img src="img/10.jpg" alt="Stoned Kiddies Wear"></a></div><div class="product-card__body"><a href="product.html?id=stoned-kiddies-wear" class="product-card__name">Stoned Kiddies Wear</a><div class="product-card__price">₦19,999</div><button class="product-card__cart" data-add-to-cart data-name="Stoned Kiddies Wear" data-price="19999" data-img="img/10.jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="kids" data-name="kiddies hoodie and pant troser" data-price="20000"><div class="product-card__media"><span class="product-card__tag">New</span><button class="love-btn" data-love-btn data-slug="kiddies-hoodie-pant-troser"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=kiddies-hoodie-pant-troser"><img src="img/new 1 (1).jpg" alt="Kiddies Hoodie and pant troser"></a></div><div class="product-card__body"><a href="product.html?id=kiddies-hoodie-pant-troser" class="product-card__name">Kiddies Hoodie and pant troser</a><div class="product-card__price">₦20,000</div><button class="product-card__cart" data-add-to-cart data-name="Kiddies Hoodie and pant troser" data-price="20000" data-img="img/new 1 (1).jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="kids" data-name="customized tube top and knicker" data-price="15000"><div class="product-card__media"><span class="product-card__tag">New</span><button class="love-btn" data-love-btn data-slug="tube-top-knicker"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=tube-top-knicker"><img src="img/new 1 (2).jpg" alt="Customized tube top and knicker"></a></div><div class="product-card__body"><a href="product.html?id=tube-top-knicker" class="product-card__name">Customized tube top and knicker</a><div class="product-card__price">₦15,000</div><button class="product-card__cart" data-add-to-cart data-name="Customized tube top and knicker" data-price="15000" data-img="img/new 1 (2).jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="kids" data-name="4 pocket troser and top" data-price="18000"><div class="product-card__media"><span class="product-card__tag">New</span><button class="love-btn" data-love-btn data-slug="four-pocket-troser-top"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=four-pocket-troser-top"><img src="img/new 1 (3).jpg" alt="4 pocket troser and top"></a></div><div class="product-card__body"><a href="product.html?id=four-pocket-troser-top" class="product-card__name">4 pocket troser and top</a><div class="product-card__price">₦18,000</div><button class="product-card__cart" data-add-to-cart data-name="4 pocket troser and top" data-price="18000" data-img="img/new 1 (3).jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="kids" data-name="kids denim overall set" data-price="24999"><div class="product-card__media"><span class="product-card__tag">New</span><button class="love-btn" data-love-btn data-slug="kids-denim-overall-set"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=kids-denim-overall-set"><img src="img/24.jpg" alt="Kids Denim Overall Set"></a></div><div class="product-card__body"><a href="product.html?id=kids-denim-overall-set" class="product-card__name">Kids Denim Overall Set</a><div class="product-card__price">₦24,999</div><button class="product-card__cart" data-add-to-cart data-name="Kids Denim Overall Set" data-price="24999" data-img="img/24.jpg">Add to Cart</button></div></div>
+        </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section--alt">
+    <div class="wrap">
+        <div class="section__head">
+            <p class="eyebrow">The Full Range</p>
+            <h2>Our Collection</h2>
+        </div>
+        <div class="product-grid" id="homeCollectionGrid">
+            <div class="product-card shop-product-item" data-category="caps" data-name="customized bernie cap" data-price="7999"><div class="product-card__media"><button class="love-btn" data-love-btn data-slug="customized-bernie-cap"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=customized-bernie-cap"><img src="img/1.jpg" alt="Customized Bernie Cap"></a></div><div class="product-card__body"><a href="product.html?id=customized-bernie-cap" class="product-card__name">Customized Bernie Cap</a><div class="product-card__price">₦7,999</div><button class="product-card__cart" data-add-to-cart data-name="Customized Bernie Cap" data-price="7999" data-img="img/1.jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="bottoms" data-name="biker shorts" data-price="5999"><div class="product-card__media"><button class="love-btn" data-love-btn data-slug="biker-shorts"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=biker-shorts"><img src="img/5.jpg" alt="BIKER Shorts"></a></div><div class="product-card__body"><a href="product.html?id=biker-shorts" class="product-card__name">BIKER Shorts</a><div class="product-card__price">₦5,999</div><button class="product-card__cart" data-add-to-cart data-name="BIKER Shorts" data-price="5999" data-img="img/5.jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="hoodies" data-name="zipper hoodie" data-price="39999"><div class="product-card__media"><button class="love-btn" data-love-btn data-slug="zipper-hoodie"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=zipper-hoodie"><img src="img/8.jpg" alt="Zipper Hoodie"></a></div><div class="product-card__body"><a href="product.html?id=zipper-hoodie" class="product-card__name">Zipper Hoodie</a><div class="product-card__price">₦39,999</div><button class="product-card__cart" data-add-to-cart data-name="Zipper Hoodie" data-price="39999" data-img="img/8.jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="hoodies" data-name="hoodie" data-price="19000"><div class="product-card__media"><button class="love-btn" data-love-btn data-slug="hoodie"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=hoodie"><img src="img/9.jpg" alt="Hoodie"></a></div><div class="product-card__body"><a href="product.html?id=hoodie" class="product-card__name">Hoodie</a><div class="product-card__price">₦19,000</div><button class="product-card__cart" data-add-to-cart data-name="Hoodie" data-price="19000" data-img="img/9.jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="sets" data-name="hoodie & joggers" data-price="29999"><div class="product-card__media"><button class="love-btn" data-love-btn data-slug="hoodie-joggers"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=hoodie-joggers"><img src="img/13.jpg" alt="Hoodie & JOGGERS"></a></div><div class="product-card__body"><a href="product.html?id=hoodie-joggers" class="product-card__name">Hoodie & JOGGERS</a><div class="product-card__price">₦29,999</div><button class="product-card__cart" data-add-to-cart data-name="Hoodie & JOGGERS" data-price="29999" data-img="img/13.jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="outerwear" data-name="denim trucker jacket" data-price="29999"><div class="product-card__media"><button class="love-btn" data-love-btn data-slug="denim-trucker-jacket"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=denim-trucker-jacket"><img src="img/24.jpg" alt="Denim Trucker Jacket"></a></div><div class="product-card__body"><a href="product.html?id=denim-trucker-jacket" class="product-card__name">Denim Trucker Jacket</a><div class="product-card__price">₦29,999</div><button class="product-card__cart" data-add-to-cart data-name="Denim Trucker Jacket" data-price="29999" data-img="img/24.jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="sets" data-name="track cargo set" data-price="34999"><div class="product-card__media"><button class="love-btn" data-love-btn data-slug="track-cargo-set"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=track-cargo-set"><img src="img/17.jpg" alt="Track Cargo Set"></a></div><div class="product-card__body"><a href="product.html?id=track-cargo-set" class="product-card__name">Track Cargo Set</a><div class="product-card__price">₦34,999</div><button class="product-card__cart" data-add-to-cart data-name="Track Cargo Set" data-price="34999" data-img="img/17.jpg">Add to Cart</button></div></div>
+            <div class="product-card shop-product-item" data-category="outerwear" data-name="bomber jacket" data-price="32000"><div class="product-card__media"><button class="love-btn" data-love-btn data-slug="bomber-jacket"><i class="fa fa-heart"></i><span class="love-count"></span></button><a href="product.html?id=bomber-jacket"><img src="img/18.jpg" alt="Bomber Jacket"></a></div><div class="product-card__body"><a href="product.html?id=bomber-jacket" class="product-card__name">Bomber Jacket</a><div class="product-card__price">₦32,000</div><button class="product-card__cart" data-add-to-cart data-name="Bomber Jacket" data-price="32000" data-img="img/18.jpg">Add to Cart</button></div></div>
+        </div>
+        </div>
+        <div class="text-center" style="margin-top:28px;">
+            <a href="team.html" class="btn btn--dark">View Full Collection</a>
+        </div>
+    </div>
+</section>
+<footer class="site-footer">
+    <div class="wrap">
+        <div class="footer-grid">
+            <div>
+                <p class="wordmark" style="color:#fff; margin-bottom:12px;">TSW <span style="color:var(--accent)">x STAYWOKE</span></p>
+                <p style="font-size:0.86rem; max-width:32ch;">Dark luxury streetwear. Orders confirmed and fulfilled over WhatsApp.</p>
+            </div>
+            <div>
+                <h4>Shop</h4>
+                <a href="service.html">All Products</a>
+                <a href="service.html?filter=new">New Arrivals</a>
+                <a href="team.html">Our Collection</a>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <a href="account.html">Track Order</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <a href="https://wa.me/2349038263456">WhatsApp</a>
+                <a href="mailto:hello@tswstaywoke.com">hello@tswstaywoke.com</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 TSW x STAYWOKE. All rights reserved.</span>
+            <span>Designed by <a href="https://wa.me/2347034365456" style="color:rgba(255,255,255,0.7)">CyberLord</a></span>
+        </div>
+    </div>
+</footer>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="cartOffcanvasLabel" style="text-transform:uppercase; font-size:0.95rem;"><i class="fa fa-bag-shopping me-2"></i>Your Bag</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+        <div id="cartItemsList" class="flex-grow-1" style="overflow-y:auto; margin-bottom:16px;"></div>
+        <div style="border-top:1px solid var(--border); padding-top:14px;">
+            <form id="couponForm" style="display:flex; gap:8px; margin-bottom:14px;">
+                <input type="text" id="couponCodeInput" class="form-field" style="margin-bottom:0;" placeholder="Discount code">
+                <button type="submit" class="btn btn--sm">Apply</button>
+            </form>
+            <div id="cartSummaryBreakdown" style="margin-bottom:10px;"></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:14px; font-weight:700;">
+                <span style="text-transform:uppercase;">Total</span>
+                <span style="color:var(--accent);" id="cartTotal">₦0</span>
+            </div>
+            <input type="text" id="checkoutName" class="form-field" placeholder="Full Name">
+            <input type="text" id="checkoutPhone" class="form-field" placeholder="Phone Number">
+            <textarea id="checkoutAddress" class="form-field" rows="2" placeholder="Delivery Address"></textarea>
+            <button class="btn btn--dark btn--full" id="checkoutBtn">Checkout via WhatsApp</button>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/product-catalog.js"></script>
+<script src="js/site-nav.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/loves.js"></script>
+<script src="js/theme-toggle.js"></script>
+</body>
+</html>
