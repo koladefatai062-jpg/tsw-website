@@ -1,23 +1,13 @@
 {
   "version": 2,
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
-  "redirects": [
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/login", "destination": "/login.html" },
-    { "source": "/register", "destination": "/register.html" },
-    { "source": "/account", "destination": "/account.html" },
-    { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/about", "destination": "/about.html" },
-    { "source": "/service", "destination": "/service.html" },
-    { "source": "/product", "destination": "/product.html" },
-    { "source": "/team", "destination": "/team.html" }
-  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
     }
   ]
