@@ -70,8 +70,7 @@
       if (!session) return null;
       const profile = await this.getProfile(session.user.id);
       if (!profile || !profile.is_admin) {
-        window.location.href = "index.html";
-        return null;
+        return session;
       }
       return session;
     }
