@@ -34,12 +34,12 @@
         <div id="adminSetup" class="d-none text-center" style="padding:60px 20px;">
             <div style="max-width:600px;margin:0 auto;background:var(--bg);border:2px solid #dc3545;border-radius:8px;padding:32px;">
                 <h3 style="color:#dc3545;margin-bottom:12px;">Database Not Ready</h3>
-                <p style="color:var(--muted);margin-bottom:20px;">Your Supabase database needs to be set up. Run this SQL:</p>
+                <p style="color:var(--muted);margin-bottom:20px;">Your Supabase database needs to be set up. Run this ONE script:</p>
                 <ol style="text-align:left;color:var(--text);margin-bottom:20px;line-height:2;">
                     <li>Open <a href="https://supabase.com/dashboard/project/fhhudlaidxfjeyyilktr/sql/new" target="_blank" style="color:var(--accent);">Supabase SQL Editor</a></li>
-                    <li>Paste the contents of <strong>sql/fix-database.sql</strong> from your project</li>
+                    <li>Paste the contents of <strong>sql/nuke-and-rebuild.sql</strong> from your project</li>
+                    <li>Replace <code style="background:var(--surface);padding:2px 6px;border-radius:3px;">YOUR_EMAIL_HERE</code> with your actual email</li>
                     <li>Click <strong>Run</strong></li>
-                    <li>Then run: <code style="background:var(--surface);padding:2px 6px;border-radius:3px;">UPDATE profiles SET is_admin = true WHERE id = (SELECT id FROM auth.users WHERE email = 'YOUR_EMAIL');</code></li>
                     <li>Reload this page</li>
                 </ol>
                 <button onclick="location.reload()" class="btn btn--dark">I ran the SQL — Reload</button>
@@ -154,30 +154,56 @@
 
         $("#adminGate").addClass("d-none");
 
+        // First check if the products table even exists
+        var tableCheck = await supabaseClient.from("products").select("id").limit(1);
+        if (tableCheck.error && tableCheck.error.message && tableCheck.error.message.indexOf("relation") !== -1) {
+            $("#adminGate").html(
+                '<div style="max-width:600px;margin:0 auto;background:var(--bg);border:2px solid #dc3545;border-radius:8px;padding:32px;">' +
+                '<h3 style="color:#dc3545;margin-bottom:12px;">Database Not Ready</h3>' +
+                '<p style="color:var(--muted);margin-bottom:20px;">Your Supabase tables need to be created. Run this ONE script:</p>' +
+                '<ol style="text-align:left;color:var(--text);margin-bottom:20px;line-height:2;">' +
+                    '<li>Open <a href="https://supabase.com/dashboard/project/fhhudlaidxfjeyyilktr/sql/new" target="_blank" style="color:var(--accent);">Supabase SQL Editor</a></li>' +
+                    '<li>Paste the contents of <strong>sql/nuke-and-rebuild.sql</strong></li>' +
+                    '<li>Replace <code style="background:var(--surface);padding:2px 6px;border-radius:3px;">YOUR_EMAIL_HERE</code> with: <strong>' + (session.user.email || '') + '</strong></li>' +
+                    '<li>Click <strong>Run</strong>, then reload this page</li>' +
+                '</ol>' +
+                '<div style="background:var(--surface);padding:12px;border-radius:6px;font-family:monospace;font-size:0.75rem;word-break:break-all;margin-bottom:16px;">' +
+                'INSERT INTO profiles (id, email, is_admin) VALUES (\'' + session.user.id + '\', \'' + (session.user.email || '') + '\', true) ON CONFLICT (id) DO UPDATE SET is_admin = true;</div>' +
+                '<button onclick="location.reload()" class="btn btn--dark">I ran the SQL — Reload</button>' +
+                '</div>'
+            ).removeClass("d-none");
+            return;
+        }
+
         var profile = await TSWAuth.getProfile(session.user.id);
 
         if (!profile || !profile.is_admin) {
-            var adminBtnHtml = '<button id="autoMakeAdmin" class="btn btn--accent" style="margin-bottom:16px;">Make Me Admin (one click)</button>';
+            var userId = session.user.id;
+            var userEmail = session.user.email || '';
+            var sqlSnippet = "INSERT INTO profiles (id, email, is_admin) VALUES ('" + userId + "', '" + userEmail + "', true) ON CONFLICT (id) DO UPDATE SET is_admin = true;";
             $("#adminGate").html(
                 '<div style="max-width:600px;margin:0 auto;background:var(--bg);border:2px solid #dc3545;border-radius:8px;padding:32px;">' +
                 '<h3 style="color:#dc3545;margin-bottom:12px;">Not Admin</h3>' +
                 '<p style="color:var(--muted);margin-bottom:12px;">You are logged in as:</p>' +
-                '<p style="font-weight:700;margin-bottom:20px;word-break:break-all;">' + (session.user.email || 'unknown') + '</p>' +
-                adminBtnHtml +
-                '<p style="color:var(--muted);margin-top:16px;font-size:0.8rem;">If the button above does not work, run this SQL in <a href="https://supabase.com/dashboard/project/fhhudlaidxfjeyyilktr/sql/new" target="_blank" style="color:var(--accent);">Supabase SQL Editor</a>:</p>' +
-                '<div style="background:var(--surface);padding:12px;border-radius:6px;font-family:monospace;font-size:0.75rem;word-break:break-all;margin-top:8px;">INSERT INTO profiles (id, email, is_admin) VALUES (\'' + session.user.id + '\', \'' + (session.user.email || '') + '\', true) ON CONFLICT (id) DO UPDATE SET is_admin = true;</div>' +
+                '<p style="font-weight:700;margin-bottom:8px;word-break:break-all;">' + userEmail + '</p>' +
+                '<p style="color:var(--muted);margin-bottom:16px;font-size:0.85rem;">UUID: <code style="background:var(--surface);padding:2px 6px;border-radius:3px;">' + userId + '</code></p>' +
+                '<button id="autoMakeAdmin" class="btn btn--accent" style="margin-bottom:20px;">Make Me Admin (one click)</button>' +
+                '<p style="color:var(--muted);margin-top:4px;font-size:0.8rem;">If the button above does not work, copy and run this SQL:</p>' +
+                '<div style="background:var(--surface);padding:12px;border-radius:6px;font-family:monospace;font-size:0.75rem;word-break:break-all;margin-top:8px;">' + sqlSnippet + '</div>' +
                 '</div>'
             ).removeClass("d-none");
             $("#autoMakeAdmin").on("click", async function () {
-                $(this).prop("disabled", true).text("Working...");
+                var $btn = $(this);
+                $btn.prop("disabled", true).text("Working...");
+                // Try profiles upsert (needs INSERT policy on profiles)
                 var res = await supabaseClient.from("profiles").upsert({
-                    id: session.user.id,
-                    email: session.user.email,
+                    id: userId,
+                    email: userEmail,
                     is_admin: true
                 }, { onConflict: "id" });
                 if (res.error) {
-                    alert("Error: " + res.error.message);
-                    $(this).prop("disabled", false).text("Make Me Admin (one click)");
+                    $btn.prop("disabled", false).text("Make Me Admin (one click)");
+                    alert("Error: " + res.error.message + "\n\nPlease copy the SQL below and run it manually in Supabase SQL Editor:\n\n" + sqlSnippet);
                 } else {
                     location.reload();
                 }
