@@ -205,13 +205,15 @@
       }
 
       var orderId = "TSW" + Date.now().toString().slice(-8);
+      var trackingId = "TSW-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
       var subtotal = Cart.subtotal();
       var discount = Cart.discountAmount();
       var coupon = Cart.getCoupon();
       var total = Cart.total();
 
       var msg = "*NEW ORDER \u2014 TSW x STAYWOKE*\n";
-      msg += "Order ID: " + orderId + "\n\n";
+      msg += "Order ID: " + orderId + "\n";
+      msg += "Tracking ID: " + trackingId + "\n\n";
       msg += "*Customer:* " + name + "\n";
       msg += "*Phone:* " + phone + "\n";
       msg += "*Delivery Address:* " + address + "\n\n";
@@ -223,19 +225,20 @@
       if (coupon) {
         msg += "*Discount (" + coupon.code + "):* -" + Cart.formatNaira(discount) + "\n";
       }
-      msg += "*Grand Total:* " + Cart.formatNaira(total) + "\n";
+      msg += "*Grand Total:* " + Cart.formatNaira(total) + "\n\n";
+      msg += "Track your order: " + window.location.origin + "/track.html?id=" + trackingId;
 
       var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
       window.open(url, "_blank");
 
-      Cart._saveOrderToSupabase(orderId, name, phone, address, items, subtotal, discount, coupon, total)
+      Cart._saveOrderToSupabase(orderId, trackingId, name, phone, address, items, subtotal, discount, coupon, total)
         .finally(function () { Cart.clear(); });
     },
 
     // Fire-and-forget: saves the order to Supabase if configured. Never blocks
     // or delays the WhatsApp handoff above, and fails silently (with a console
     // warning) if Supabase isn't set up yet or the insert fails.
-    _saveOrderToSupabase: async function (orderId, name, phone, address, items, subtotal, discount, coupon, total) {
+    _saveOrderToSupabase: async function (orderId, trackingId, name, phone, address, items, subtotal, discount, coupon, total) {
       if (!supabaseClient) return;
       try {
         var session = window.TSWAuth ? await TSWAuth.getSession() : null;
@@ -243,6 +246,7 @@
           .from("orders")
           .insert({
             order_number: orderId,
+            tracking_id: trackingId,
             user_id: session ? session.user.id : null,
             customer_name: name,
             customer_phone: phone,

@@ -10,8 +10,10 @@
  * what actually protects the data.
  */
 
-const SUPABASE_URL = "https://fhhudlaidxfjeyyilktr.supabase.co";       // <-- paste your Project URL here
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoaHVkbGFpZHhmamV5eWlsa3RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1Mzk3MzgsImV4cCI6MjEwMDExNTczOH0.y8Rf6VHwK2_dvegwFSM0C6FQDcDcEDXbwH01YE2P5PM";  // <-- paste your anon public key here
+const SUPABASE_URL = "https://fhhudlaidxfjeyyilktr.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoaHVkbGFpZHhmamV5eWlsa3RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1Mzk3MzgsImV4cCI6MjEwMDExNTczOH0.y8Rf6VHwK2_dvegwFSM0C6FQDcDcEDXbwH01YE2P5PM";
+
+const IMGBB_API_KEY = "0e7e3d1c5b2a4f6e8d0c3b5a7f9e1d2c";  // <-- paste your free imgbb API key from https://api.imgbb.com/
 
 let supabaseClient = null;
 

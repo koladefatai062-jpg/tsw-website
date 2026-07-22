@@ -129,17 +129,30 @@
         var id = $("#productId").val();
         var imageUrl = $("#productImage").val().trim();
 
-        // Try file upload if a file is selected
+        // Try file upload via imgbb if a file is selected
         var fileInput = document.getElementById("productImageFile");
         var file = fileInput && fileInput.files && fileInput.files[0];
         if (file) {
-          var path = "products/" + Date.now() + "-" + file.name.replace(/[^a-zA-Z0-9._-]/g, "");
-          var uploadResult = await supabaseClient.storage.from("product-images").upload(path, file, { upsert: true });
-          if (uploadResult.error) {
-            toast("Image upload failed (using URL instead): " + uploadResult.error.message);
-          } else {
-            var urlResult = supabaseClient.storage.from("product-images").getPublicUrl(path);
-            imageUrl = urlResult.data.publicUrl;
+          try {
+            var base64 = await new Promise(function (resolve, reject) {
+              var reader = new FileReader();
+              reader.onload = function () { resolve(reader.result.split(",")[1]); };
+              reader.onerror = reject;
+              reader.readAsDataURL(file);
+            });
+            var form = new FormData();
+            form.append("key", window.IMGBB_API_KEY || "0e7e3d1c5b2a4f6e8d0c3b5a7f9e1d2c");
+            form.append("image", base64);
+            var uploadRes = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: form });
+            var uploadData = await uploadRes.json();
+            if (uploadData && uploadData.data && uploadData.data.url) {
+              imageUrl = uploadData.data.url;
+              toast("Image uploaded!");
+            } else {
+              toast("Upload failed, using URL field instead");
+            }
+          } catch (uploadErr) {
+            toast("Upload error, using URL field instead");
           }
         }
 
@@ -205,7 +218,7 @@
       var statuses = ["Pending", "Confirmed", "Processing", "Shipped", "Delivered", "Cancelled"];
       var $tbody = $("#ordersTableBody");
       if (data.length === 0) {
-        $tbody.html('<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted);">No orders yet.</td></tr>');
+        $tbody.html('<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted);">No orders yet.</td></tr>');
         return;
       }
       $tbody.html(data.map(function (o) {
@@ -213,7 +226,7 @@
           return i.product_name + (i.qty > 1 ? " \u00d7" + i.qty : "");
         }).join(", ");
         return '<tr>' +
-          '<td>' + (o.order_number || "") + '</td>' +
+          '<td>' + (o.order_number || "") + '<br><small style="color:var(--accent);font-weight:600;word-break:break-all;">' + (o.tracking_id || "") + '</small></td>' +
           '<td>' + (o.customer_name || "") + '<br><small style="color:var(--muted);">' + (o.customer_phone || "") + '</small></td>' +
           '<td>' + items + '</td>' +
           '<td>' + formatNaira(o.total) + '</td>' +
