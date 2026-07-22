@@ -30,7 +30,7 @@
   }
 
   async function loadStoreProducts() {
-    if (!window.supabaseClient) return;
+    if (typeof supabaseClient === "undefined" || !supabaseClient) return;
 
     const { data, error } = await supabaseClient
       .from("products")
