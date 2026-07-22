@@ -168,7 +168,7 @@
         const id = params.get("id");
         let product = null;
 
-        if (id && window.supabaseClient) {
+        if (id && typeof supabaseClient !== "undefined" && supabaseClient) {
             const { data } = await supabaseClient.from("products").select("*").eq("id", id).maybeSingle();
             if (data) {
                 product = {
@@ -210,7 +210,7 @@
 
     async function loadRelated(product) {
         let related = STATIC_PRODUCTS.filter(p => p.category === product.category && p.id !== product.id);
-        if (window.supabaseClient) {
+        if (typeof supabaseClient !== "undefined" && supabaseClient) {
             const { data } = await supabaseClient.from("products").select("*")
                 .eq("category", product.category).eq("is_active", true).limit(8);
             if (data && data.length) {

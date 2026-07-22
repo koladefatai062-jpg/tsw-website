@@ -75,7 +75,7 @@
       }
     },
     applyCoupon: async function (code) {
-      if (!window.supabaseClient) {
+      if (!supabaseClient) {
         Cart.toast("Discount codes aren't set up yet");
         return;
       }
@@ -236,7 +236,7 @@
     // or delays the WhatsApp handoff above, and fails silently (with a console
     // warning) if Supabase isn't set up yet or the insert fails.
     _saveOrderToSupabase: async function (orderId, name, phone, address, items, subtotal, discount, coupon, total) {
-      if (!window.supabaseClient) return;
+      if (!supabaseClient) return;
       try {
         var session = window.TSWAuth ? await TSWAuth.getSession() : null;
         var { data: orderRow, error: orderError } = await supabaseClient
