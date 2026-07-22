@@ -13,7 +13,7 @@
 const SUPABASE_URL = "https://fhhudlaidxfjeyyilktr.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoaHVkbGFpZHhmamV5eWlsa3RyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1Mzk3MzgsImV4cCI6MjEwMDExNTczOH0.y8Rf6VHwK2_dvegwFSM0C6FQDcDcEDXbwH01YE2P5PM";
 
-const IMGBB_API_KEY = "fda8242ebaef72454987329a59610ef0";  // <-- paste your free imgbb API key from https://api.imgbb.com/
+const IMGBB_API_KEY = "fda8242ebaef72454987329a59610ef0";
 
 let supabaseClient = null;
 

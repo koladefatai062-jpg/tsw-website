@@ -141,7 +141,7 @@
               reader.readAsDataURL(file);
             });
             var form = new FormData();
-            form.append("key", window.IMGBB_API_KEY || "0e7e3d1c5b2a4f6e8d0c3b5a7f9e1d2c");
+            form.append("key", typeof IMGBB_API_KEY !== "undefined" ? IMGBB_API_KEY : "fda8242ebaef72454987329a59610ef0");
             form.append("image", base64);
             var uploadRes = await fetch("https://api.imgbb.com/1/upload", { method: "POST", body: form });
             var uploadData = await uploadRes.json();
